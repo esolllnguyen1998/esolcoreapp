@@ -5,10 +5,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Entities\" />
-    <Folder Include="Enums\" />
-    <Folder Include="Interfaces\" />
     <Folder Include="Respositories\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Braintree" Version="4.15.0" />
+    <PackageReference Include="Microsoft.AspNet.Identity.EntityFramework" Version="2.2.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EsolCoreApp.Infrastructure\EsolCoreApp.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
