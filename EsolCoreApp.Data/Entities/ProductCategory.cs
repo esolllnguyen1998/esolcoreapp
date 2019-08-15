@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using EsolCoreApp.Data.Enums;
+﻿using EsolCoreApp.Data.Enums;
 using EsolCoreApp.Data.Interfaces;
 using EsolCoreApp.Infrastructure.ShareKernel;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EsolCoreApp.Data.Entities
 {
@@ -15,6 +14,25 @@ namespace EsolCoreApp.Data.Entities
         public ProductCategory()
         {
             Products = new List<Product>();
+        }
+        public ProductCategory(string Name, string Description, int? ParentId, int? HomeOrder, string Image, bool? HomeFlag, DateTime DateCreated, DateTime DateModified, int SortOrder,
+           Status Status, string SeoPageTitle, string SeoAlias, string SeoKeywords, string SeoDescription, int SorOrder)
+        {
+            this.Name = Name;
+            this.Description = Description;
+            this.ParentId = ParentId;
+            this.HomeOrder = HomeOrder;
+            this.Image = Image;
+            this.HomeFlag = HomeFlag;
+            this.DateCreated = DateCreated;
+            this.DateModified = DateModified;
+            this.SortOrder = SortOrder;
+            this.Status = Status;
+            this.SeoPageTitle = SeoPageTitle;
+            this.SeoAlias = SeoAlias;
+            this.SeoKeywords = SeoKeywords;
+            this.SeoDescription = SeoDescription;
+            this.SortOrder = SorOrder;
         }
         public string Name { get; set; }
 
