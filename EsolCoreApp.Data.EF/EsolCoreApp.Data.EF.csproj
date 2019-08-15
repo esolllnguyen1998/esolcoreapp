@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Configurations\" />
+    <Folder Include="Extensions\" />
+    <Folder Include="Repositories\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EsolCoreApp.Data\EsolCoreApp.Data.csproj" />
+    <ProjectReference Include="..\EsolCoreApp.Infrastructure\EsolCoreApp.Infrastructure.csproj" />
+    <ProjectReference Include="..\EsolCoreApp.Utilities\EsolCoreApp.Utilities.csproj" />
+  </ItemGroup>
+
+</Project>
