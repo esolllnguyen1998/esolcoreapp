@@ -12,7 +12,7 @@ namespace EsolCoreApp.Data.EF.Repositories
         AppDbContext _context;
         public ProductCategoryRepository(AppDbContext context) :base (context)
         {
-
+            _context = context;
         }
 
         public List<ProductCategory> GetbyAliass(string Alias)

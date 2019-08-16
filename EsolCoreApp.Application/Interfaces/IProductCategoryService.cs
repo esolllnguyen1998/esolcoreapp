@@ -5,7 +5,7 @@ namespace EsolCoreApp.Application.Interfaces
 {
     public interface IProductCategoryService
     {
-        ProductCategoryViewModel Add(ProductCategoryViewModel productCategoryVm);
+        void Add(ProductCategoryViewModel productCategoryVm);
 
         void Update(ProductCategoryViewModel productCategoryVm);
 
@@ -18,10 +18,6 @@ namespace EsolCoreApp.Application.Interfaces
         List<ProductCategoryViewModel> GetAllByParentId(int parentId);
 
         ProductCategoryViewModel GetById(int id);
-
-        void UpdateParentId(int sourceId, int targetId, Dictionary<int, int> items);
-
-        void ReOrder(int sourceId, int targetId);
 
         List<ProductCategoryViewModel> GetHomeCategories(int top);
 

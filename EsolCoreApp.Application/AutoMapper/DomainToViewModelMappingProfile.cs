@@ -11,7 +11,9 @@ namespace EsolCoreApp.Application.AutoMapper
     {
         public DomainToViewModelMappingProfile()
         {
-            CreateMap<ProductCategory, ProductCategoryViewModel>();
+            CreateMap<ProductCategory, ProductCategoryViewModel>(MemberList.None);
+
+
         }
     }
 }

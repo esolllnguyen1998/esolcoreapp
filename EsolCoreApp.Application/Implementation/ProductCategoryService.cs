@@ -1,9 +1,12 @@
-﻿using EsolCoreApp.Application.Interfaces;
+﻿using AutoMapper;
+using EsolCoreApp.Application.Interfaces;
 using EsolCoreApp.Application.ViewModels.Product;
 using EsolCoreApp.Data.EF.Repositories;
+using EsolCoreApp.Data.Entities;
 using EsolCoreApp.Infrastructure.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace EsolCoreApp.Application.Implementation
@@ -12,64 +15,72 @@ namespace EsolCoreApp.Application.Implementation
     {
         private readonly ProductCategoryRepository _ProductCategoryRepository;
         private IUnitOfWork _unitOfWork;
-        public ProductCategoryService (ProductCategoryRepository productCategoryRepository,IUnitOfWork unitOfWork)
+        private readonly Mapper _mapper;
+        public ProductCategoryService (ProductCategoryRepository productCategoryRepository,IUnitOfWork unitOfWork,Mapper mapper)
         {
             _ProductCategoryRepository = productCategoryRepository;
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
-        public ProductCategoryViewModel Add(ProductCategoryViewModel productCategoryVm)
+        public void Add(ProductCategoryViewModel productCategoryVm)
         {
-            return _ProductCategoryRepository.Add(productCategoryVm);
+            var productCategory = _mapper.Map<ProductCategoryViewModel, ProductCategory>(productCategoryVm);
+            _ProductCategoryRepository.Add(productCategory);
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            _ProductCategoryRepository.Remove(id);
         }
 
         public List<ProductCategoryViewModel> GetAll()
         {
-            throw new NotImplementedException();
-        }
+            var lst = _ProductCategoryRepository.FindAll().ToList();
+            List<ProductCategoryViewModel> productCategoryVM = new List<ProductCategoryViewModel>();
+            productCategoryVM = _mapper.Map<List<ProductCategory>,List<ProductCategoryViewModel>>(lst);
+            return productCategoryVM;
+    }
 
         public List<ProductCategoryViewModel> GetAll(string keyword)
         {
-            throw new NotImplementedException();
+            var lst = _ProductCategoryRepository.FindAll().Where(x=> x.Name.IndexOf(keyword) != 0).ToList();
+            List<ProductCategoryViewModel> productCategoryVM = new List<ProductCategoryViewModel>();
+            productCategoryVM = _mapper.Map<List<ProductCategory>, List<ProductCategoryViewModel>>(lst);
+            return productCategoryVM;
         }
 
         public List<ProductCategoryViewModel> GetAllByParentId(int parentId)
         {
-            throw new NotImplementedException();
+            var lst = _ProductCategoryRepository.FindAll().Where(x => x.Id  == parentId).ToList();
+            List<ProductCategoryViewModel> productCategoryVM = new List<ProductCategoryViewModel>();
+            productCategoryVM = _mapper.Map<List<ProductCategory>, List<ProductCategoryViewModel>>(lst);
+            return productCategoryVM;
         }
 
         public ProductCategoryViewModel GetById(int id)
         {
-            throw new NotImplementedException();
+            var lst = _ProductCategoryRepository.FindAll().Where(x => x.Id == id).FirstOrDefault();
+            ProductCategoryViewModel productCategoryView = new ProductCategoryViewModel();
+            productCategoryView = _mapper.Map<ProductCategory, ProductCategoryViewModel>(lst);
+            return productCategoryView;
         }
 
         public List<ProductCategoryViewModel> GetHomeCategories(int top)
         {
-            throw new NotImplementedException();
+            var lst = _ProductCategoryRepository.FindAll().Where(x => x.HomeOrder == top).ToList();
+            List<ProductCategoryViewModel> productCategoryVM = new List<ProductCategoryViewModel>();
+            productCategoryVM = _mapper.Map<List<ProductCategory>, List<ProductCategoryViewModel>>(lst);
+            return productCategoryVM;
         }
-
-        public void ReOrder(int sourceId, int targetId)
-        {
-            throw new NotImplementedException();
-        }
-
         public void Save()
         {
-            throw new NotImplementedException();
+            _unitOfWork.Commit();
         }
 
         public void Update(ProductCategoryViewModel productCategoryVm)
         {
-            throw new NotImplementedException();
-        }
-
-        public void UpdateParentId(int sourceId, int targetId, Dictionary<int, int> items)
-        {
-            throw new NotImplementedException();
+            var productCategory = _mapper.Map<ProductCategoryViewModel, ProductCategory>(productCategoryVm);
+            _ProductCategoryRepository.Update(productCategory);
         }
     }
 }

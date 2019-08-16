@@ -3,9 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using EsolCoreApp.Application.AutoMapper;
+using EsolCoreApp.Application.Implementation;
+using EsolCoreApp.Application.Interfaces;
 using EsolCoreApp.Data;
 using EsolCoreApp.Data.EF;
+using EsolCoreApp.Data.EF.Repositories;
 using EsolCoreApp.Data.Entities;
+using EsolCoreApp.Data.IRespositories;
 using EsolCoreApp.Models;
 using EsolCoreApp.Services;
 using Microsoft.AspNetCore.Builder;
@@ -45,8 +50,17 @@ namespace EsolCoreApp
             services.AddTransient<DbInitializer>();
             services.AddScoped<UserManager<AppUser>,UserManager<AppUser>>();
             services.AddScoped<RoleManager<AppRole>, RoleManager<AppRole>>();
+            //Register AutoMapper
+            AutoMapperConfig autoMapper = new AutoMapperConfig();
+            Mapper mapper = autoMapper.RegisterMappings();
+            services.AddSingleton(mapper);
+            services.AddScoped<IMapper>(sp => new Mapper(sp.GetRequiredService<AutoMapper.IConfigurationProvider>(), sp.GetService));
+            ///
+            //Register Repositories
+            services.AddTransient<IProductCategoryRepository, ProductCategoryRepository>();
+            //Register Services
+            services.AddTransient<IProductCategoryService, ProductCategoryService>();
 
-            services.AddSingleton(Mapper.con);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 

@@ -7,13 +7,14 @@ namespace EsolCoreApp.Application.AutoMapper
 {
     public class AutoMapperConfig
     {
-        public static MapperConfiguration RegisterMappings()
+        public  Mapper RegisterMappings()
         {
-            return new MapperConfiguration(cfg =>
+          var temp = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile(new DomainToViewModelMappingProfile());
                 cfg.AddProfile(new ViewModelToDomainMappingProfile());
             });
+            return new Mapper(temp);
         }
     }
 }
