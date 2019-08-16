@@ -23,11 +23,10 @@ namespace EsolCoreApp.Data.Entities
 
         [StringLength(250)]
         public string Content { set; get; }
-
-        [StringLength(450)]
-        public string UserId { set; get; }
+        public Guid UserId { set; get; }
 
         [ForeignKey("UserId")]
+       
         public virtual AppUser AppUser { get; set; }
 
         public virtual ICollection<AnnouncementUser> AnnouncementUsers { get; set; }

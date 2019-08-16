@@ -1,5 +1,6 @@
 ﻿using EsolCoreApp.Data.EF.Extensions;
 using EsolCoreApp.Data.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EsolCoreApp.Data.EF.Configurations
@@ -8,7 +9,7 @@ namespace EsolCoreApp.Data.EF.Configurations
     {
         public override void Configure(EntityTypeBuilder<BlogTag> entity)
         {
-            entity.Property(c => c.TagId).HasMaxLength(255).IsRequired();
+            entity.Property(c => c.TagId).HasMaxLength(50).IsRequired();
 
             // etc.
         }

@@ -12,7 +12,6 @@ namespace EsolCoreApp.Data.Entities
         public int ProductId { get; set; }
 
         [StringLength(50)]
-        [Column(TypeName = "varchar")]
         public string TagId { set; get; }
 
         [ForeignKey("ProductId")]

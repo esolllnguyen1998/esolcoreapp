@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using EsolCoreApp.Application.AutoMapper;
 using EsolCoreApp.Application.Implementation;
 using EsolCoreApp.Application.Interfaces;
@@ -16,7 +12,6 @@ using EsolCoreApp.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -44,11 +39,11 @@ namespace EsolCoreApp
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
             services.AddDbContext<ApplicationDbContext>(opts => opts.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
-                o=> o.MigrationsAssembly("EsolCoreApp.Data.EF")));
+                o => o.MigrationsAssembly("EsolCoreApp.Data.EF")));
             services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<DbInitializer>();
-            services.AddScoped<UserManager<AppUser>,UserManager<AppUser>>();
+            services.AddScoped<UserManager<AppUser>, UserManager<AppUser>>();
             services.AddScoped<RoleManager<AppRole>, RoleManager<AppRole>>();
             //Register AutoMapper
             AutoMapperConfig autoMapper = new AutoMapperConfig();
@@ -89,7 +84,6 @@ namespace EsolCoreApp
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
-            dbInitializer.Seed().Wait();
         }
     }
 }

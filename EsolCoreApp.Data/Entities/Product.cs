@@ -52,7 +52,6 @@ namespace EsolCoreApp.Data.Entities
 
         public string SeoPageTitle { set; get; }
 
-        [Column(TypeName = "varchar")]
         [StringLength(255)]
         public string SeoAlias { set; get; }
 

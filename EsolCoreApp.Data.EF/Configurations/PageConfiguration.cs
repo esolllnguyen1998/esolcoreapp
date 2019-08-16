@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using EsolCoreApp.Data.EF.Extensions;
 using EsolCoreApp.Data.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace EsolCoreApp.Data.EF.Configurations
 {
@@ -12,7 +13,7 @@ namespace EsolCoreApp.Data.EF.Configurations
         public override void Configure(EntityTypeBuilder<Page> entity)
         {
             entity.HasKey(c => c.Id);
-            entity.Property(c => c.Id).HasMaxLength(255).IsRequired();
+            entity.Property(c => c.Id).HasMaxLength(20).IsRequired();
             // etc.
         }
     }

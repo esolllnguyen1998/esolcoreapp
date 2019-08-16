@@ -2,25 +2,26 @@
 using EsolCoreApp.Data.EF.Extensions;
 using EsolCoreApp.Data.Entities;
 using EsolCoreApp.Data.Interfaces;
-using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.Configuration;
 using System;
-using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Text;
 using TeduCoreApp.Data.Entities;
 
 namespace EsolCoreApp.Data.EF
 {
-    public class AppDbContext : IdentityDbContext<AppUser,AppRole,Guid>
+    public class AppDbContext : IdentityDbContext<AppUser, AppRole, Guid>
     {
-        public AppDbContext(DbContextOptions options) : base (options)
+        public AppDbContext(DbContextOptions options) : base(options)
         {
-
+            
         }
+
         public override int SaveChanges()
         {
             var modified = ChangeTracker.Entries().Where(e => e.State == EntityState.Modified || e.State == EntityState.Added);
@@ -39,6 +40,7 @@ namespace EsolCoreApp.Data.EF
             }
             return base.SaveChanges();
         }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             #region Identity Config
@@ -70,6 +72,7 @@ namespace EsolCoreApp.Data.EF
 
             base.OnModelCreating(builder);
         }
+
         public DbSet<Language> Languages { set; get; }
         public DbSet<SystemConfig> SystemConfigs { get; set; }
         public DbSet<Function> Functions { get; set; }
@@ -79,7 +82,7 @@ namespace EsolCoreApp.Data.EF
         public DbSet<Announcement> Announcements { set; get; }
         public DbSet<AnnouncementUser> AnnouncementUsers { set; get; }
 
-        public DbSet<Blog> Bills { set; get; }
+        public DbSet<Bill> Bills { set; get; }
         public DbSet<BillDetail> BillDetails { set; get; }
         public DbSet<Blog> Blogs { set; get; }
         public DbSet<BlogTag> BlogTags { set; get; }
@@ -105,5 +108,20 @@ namespace EsolCoreApp.Data.EF
         public DbSet<AdvertistmentPage> AdvertistmentPages { get; set; }
         public DbSet<Advertistment> Advertistments { get; set; }
         public DbSet<AdvertistmentPosition> AdvertistmentPositions { get; set; }
+    }
+
+    public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
+    {
+        public AppDbContext CreateDbContext(string[] args)
+        {
+            IConfiguration configuration = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory())
+                  .AddJsonFile("appsettings.json").Build();
+
+            var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
+            var connectionString = configuration.GetConnectionString("DefaultConnection");
+            optionsBuilder.UseSqlServer(connectionString);
+
+            return new AppDbContext(optionsBuilder.Options);
+        }
     }
 }

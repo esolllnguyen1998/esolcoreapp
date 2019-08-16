@@ -17,6 +17,7 @@ namespace EsolCoreApp.Data.Entities
         public string Name { get; set; }
 
         [ForeignKey("PageId")]
+        [StringLength(20)]
         public virtual AdvertistmentPage AdvertistmentPage { get; set; }
 
         public virtual ICollection<Advertistment> Advertistments { get; set; }

@@ -1,5 +1,6 @@
 ﻿using EsolCoreApp.Data.EF.Extensions;
 using EsolCoreApp.Data.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EsolCoreApp.Data.EF.Configurations

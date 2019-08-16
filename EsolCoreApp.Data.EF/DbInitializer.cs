@@ -1,8 +1,6 @@
 ﻿using EsolCoreApp.Data.Entities;
 using EsolCoreApp.Data.Enums;
 using EsolCoreApp.Utilities.Constants;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,7 +13,8 @@ namespace EsolCoreApp.Data.EF
         private readonly AppDbContext _context;
         private Microsoft.AspNetCore.Identity.UserManager<AppUser> _userManager;
         private Microsoft.AspNetCore.Identity.RoleManager<AppRole> _roleManager;
-        public DbInitializer(AppDbContext context, Microsoft.AspNetCore.Identity.UserManager<AppUser>  userManager, Microsoft.AspNetCore.Identity.RoleManager<AppRole> roleManager)
+
+        public DbInitializer(AppDbContext context, Microsoft.AspNetCore.Identity.UserManager<AppUser> userManager, Microsoft.AspNetCore.Identity.RoleManager<AppRole> roleManager)
         {
             _context = context;
             _userManager = userManager;
